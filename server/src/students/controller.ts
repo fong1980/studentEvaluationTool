@@ -1,10 +1,10 @@
 import {
   JsonController,
-  Get
+  Get,
   //   Post,
   //   HttpCode,
   //   Body,
-  //   Param
+  Param
 } from "routing-controllers";
 import Students from "./entity";
 
@@ -24,10 +24,10 @@ export default class batchsController {
   // }
   // // http post :4000/batch/ batchnr=10 startdate="22-04-2019" enddate="22-06-2019"
 
-  // @Get("/batchs/:id")
-  // async getBatchById(@Param("id") batchsId: number) {
-  //   const batch = await Batch.findOne(batchsId);
-  //   return { batch };
-  // }
-  // //http get :4000/batchs/2
+  @Get("/students/:id")
+  async getStudentById(@Param("id") stuentId: number) {
+    const student = await Students.findOne(stuentId);
+    return { student };
+  }
+  //http get :4000/students/2
 }
