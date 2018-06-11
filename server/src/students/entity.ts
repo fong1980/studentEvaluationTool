@@ -23,9 +23,6 @@ export default class Student extends BaseEntity {
   lastName: string;
 
   @Column("text", { nullable: false })
-  enddate: string;
-
-  @Column("text", { nullable: false })
   photo: string;
 
   @ManyToOne(_ => Batch, batch => batch.students)
