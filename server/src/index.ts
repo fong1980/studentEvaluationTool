@@ -3,7 +3,11 @@ import { Action, BadRequestError, useKoaServer } from "routing-controllers";
 import setupDb from "./db";
 import UserController from "./users/controller";
 import LoginController from "./logins/controller";
-//import GameController from "./games/controller";
+//stuff my stuff
+import batchsController from "./batchs/controller";
+
+//end my stuff
+
 import { verify } from "./jwt";
 import User from "./users/entity";
 import * as Koa from "koa";
@@ -19,7 +23,7 @@ const port = process.env.PORT || 4000;
 
 useKoaServer(app, {
   cors: true,
-  controllers: [UserController, LoginController],//GameController verwijderd
+  controllers: [UserController, LoginController, batchsController], //GameController verwijderd
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization;
     if (header && header.startsWith("Bearer ")) {

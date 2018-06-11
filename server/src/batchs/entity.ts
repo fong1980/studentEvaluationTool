@@ -9,7 +9,7 @@ export default class Batch extends BaseEntity {
   @PrimaryGeneratedColumn() id?: number;
 
   @Column("text", { nullable: false })
-  name: string;
+  batchnr: string;
 
   @Column("text", { nullable: false })
   startdate: string;
