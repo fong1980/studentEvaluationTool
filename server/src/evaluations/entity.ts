@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { BaseEntity } from "typeorm/repository/BaseEntity";
+import Student from "../students/entity";
 
 @Entity()
 export default class Evaluation extends BaseEntity {
@@ -10,14 +11,10 @@ export default class Evaluation extends BaseEntity {
 
   @Column("text", { nullable: false })
   date: string;
+
+  @ManyToOne(_ => Student, student => student.evaluations)
+  student: Student;
 }
 
-// \*\* a function that returns the number of changes between boards
-
-// ```
-// const moves = (board1, board2) =>
-//   board1
-//     .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
-//     .reduce((a, b) => a.concat(b))
-//     .length
-// ```
+// @ManyToOne(_ => Batch, batch => batch.students)
+// batch: Batch;
