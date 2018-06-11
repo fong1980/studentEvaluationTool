@@ -5,6 +5,7 @@ import UserController from "./users/controller";
 import LoginController from "./logins/controller";
 //stuff my stuff
 import batchsController from "./batchs/controller";
+import studentController from "./students/controller";
 
 //end my stuff
 
@@ -23,7 +24,12 @@ const port = process.env.PORT || 4000;
 
 useKoaServer(app, {
   cors: true,
-  controllers: [UserController, LoginController, batchsController], //GameController verwijderd
+  controllers: [
+    UserController,
+    LoginController,
+    batchsController,
+    studentController
+  ], //GameController verwijderd
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization;
     if (header && header.startsWith("Bearer ")) {
