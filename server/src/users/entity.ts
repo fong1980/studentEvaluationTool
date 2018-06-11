@@ -3,12 +3,13 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  //OneToMany
+  OneToMany
 } from "typeorm";
 import { Exclude } from "class-transformer";
 import { MinLength, IsString, IsEmail } from "class-validator";
+import Evaluation from "../evaluations/entity";
+
 import * as bcrypt from "bcrypt";
-//import { Player } from "../games/entities";
 
 @Entity()
 export default class User extends BaseEntity {
@@ -34,6 +35,9 @@ export default class User extends BaseEntity {
   @Exclude({ toPlainOnly: true })
   password: string;
 
+  @OneToMany(_ => Evaluation, evaluation => evaluation.user, { eager: true })
+  evaluations: Evaluation[];
+
   async setPassword(rawPassword: string) {
     const hash = await bcrypt.hash(rawPassword, 10);
     this.password = hash;
@@ -42,9 +46,4 @@ export default class User extends BaseEntity {
   checkPassword(rawPassword: string): Promise<boolean> {
     return bcrypt.compare(rawPassword, this.password);
   }
-
-  // this is a relation, read more about them here:
-  // http://typeorm.io/#/many-to-one-one-to-many-relations
-  // @OneToMany(_ => Player, player => player.user)
-  // players: Player[]
 }

@@ -1,6 +1,9 @@
+//entity evaluations
+
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { BaseEntity } from "typeorm/repository/BaseEntity";
 import Student from "../students/entity";
+import User from "../users/entity";
 
 @Entity()
 export default class Evaluation extends BaseEntity {
@@ -14,6 +17,9 @@ export default class Evaluation extends BaseEntity {
 
   @ManyToOne(_ => Student, student => student.evaluations)
   student: Student;
+
+  @ManyToOne(_ => User, user => user.evaluations)
+  user: User;
 }
 
 // @ManyToOne(_ => Batch, batch => batch.students)
