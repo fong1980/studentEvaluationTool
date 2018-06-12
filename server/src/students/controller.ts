@@ -21,24 +21,23 @@ export default class batchsController {
   // //http get :4000/students
 
   //-----------post student
-
-  @Post("/batch/:id/student") //@Post("/student") //
+  @Post("/addStudent/:id") //@Post("/student") //
   @HttpCode(201)
   async createStudent(@Body() student: Students, @Param("id") batchId: number) {
     const batch = await Batch.findOne(batchId);
-    if (batch) student.batch = batch;
+    if (!batch) throw new NotFoundError("no batch find");
 
-    return student.save();
+    const newStudent = await Students.create({ ...student, batch }).save(); //zie tic tak game.
+    return newStudent;
   }
-  //http post :4000/batch/2/student firstName=anouk lastName=rees photo="thisIsaPic.nl" batch_id=2
-  //http post :4000/student firstName=anouk lastName=rees photo="thisIsaPic.nl" batch_id=2
+  //http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl"
 
   //-----------post student------------
 
   @Get("/students/:id")
   async getStudentById(@Param("id") stuentId: number) {
     const student = await Students.findOne(stuentId);
-    return { student };
+    return student;
   }
   //http get :4000/students/2
 
@@ -49,7 +48,7 @@ export default class batchsController {
     if (!student) throw new NotFoundError("Nothing to Delete here!");
 
     if (student) student.remove();
-    return "student Deleted.";
+    return "student Deleted with" + id;
   }
   //http delete :4000/student/2
 }

@@ -1,12 +1,16 @@
 import {
   JsonController,
-  Get
-  // Post,
-  // HttpCode,
-  // Body,
-  // Param
+  Get,
+  Post,
+  HttpCode,
+  Body,
+  Param,
+  Delete,
+  NotFoundError
 } from "routing-controllers";
 import Evaluations from "./entity";
+import Students from "../students/entity";
+import Users from "../users/entity";
 
 @JsonController()
 export default class EvaluationsController {
@@ -17,12 +21,28 @@ export default class EvaluationsController {
   }
   //http get :4000/Evaluations
 
-  // @Post("/batch")
-  // @HttpCode(201)
-  // async newbatch(@Body() batch: Batch) {
-  //   return batch.save();
-  // }
-  // // http post :4000/batch/ batchnr=10 startdate="22-04-2019" enddate="22-06-2019"
+  @Post("/evaluation/:stuId/:userId")
+  @HttpCode(201)
+  async createEvaluation(
+    @Body() evaluations: Evaluations,
+    @Param("stuId") studId: number,
+    @Param("userId") userId: number
+  ) {
+    const student = await Students.findOne(studId);
+    const user = await Users.findOne(userId);
+
+    if (!student) throw new NotFoundError("no batch find");
+    if (!user) throw new NotFoundError("no batch find");
+
+    const newEvaluation = await Evaluations.create({
+      ...evaluations,
+      student,
+      user
+    }).save();
+    return newEvaluation;
+  }
+
+  // http post :4000/evaluation/1/1 color=green date="22-04-2019"
 
   // @Get("/batchs/:id")
   // async getBatchById(@Param("id") batchsId: number) {
