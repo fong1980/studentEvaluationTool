@@ -6,15 +6,16 @@ import { getBatchs } from "../../actions/batchs";
 
 const a = ["adfa", "dfad", "asdfad"];
 class batchs extends PureComponent {
-  componentWillMount() {
+  componentDidMount() {
+    if (this.props.batchs === null) this.props.getBatchs(); //=== null
     if (this.props.authenticated) {
-      if (this.props.batchs === null) this.props.getBatchs(); //=== null
     }
   }
 
   render() {
     const { authenticated } = this.props; //games, users,createGame deleted
     const { batchs } = this.props;
+    //.log(this.props.batchs, "mount");
 
     //console.log(this.props.batchs);
     //console.log(typeof this.props.batchs);
@@ -23,14 +24,25 @@ class batchs extends PureComponent {
     // console.log(typeof object1);
     // console.log(Object.values(object1));
 
+    console.log(batchs, "asdf");
     if (!authenticated) return <Redirect to="/login" />;
-    if (!batchs) console.log("nee man");
+    //if (!batchs) console.log("nee man");
+
+    const render = () => {
+      if (batchs)
+        return (
+          <div>
+            {console.log(batchs, "---")}
+            test
+          </div>
+        );
+    };
 
     return (
       <div>
         <div className="all batch">batchlist</div>
-        {console.log(batchs, "test")}
-        {a.map(x => "x")}
+
+        {render()}
 
         <div className="form">-</div>
       </div>
