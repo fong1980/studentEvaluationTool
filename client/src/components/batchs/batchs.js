@@ -7,9 +7,7 @@ import { getBatchs } from "../../actions/batchs";
 class batchs extends PureComponent {
   componentWillMount() {
     if (this.props.authenticated) {
-      // if (this.props.users === null)
-      console.log("lets unpack this stuff");
-      this.props.getBatchs();
+      if (this.props.batchs === null) this.props.getBatchs();
     }
   }
 
@@ -28,7 +26,8 @@ class batchs extends PureComponent {
 }
 const mapStateToProps = state => ({
   authenticated: state.currentUser !== null,
-  users: state.users === null ? null : state.users
+  users: state.users === null ? null : state.users,
+  batchs: state.batchs
 });
 
 export default connect(

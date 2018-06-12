@@ -11,14 +11,11 @@ export const GET_BATCHS = "GET_BATCHS";
 //     payload: "dit is een payload"
 //   };
 // };
-//
-// this sould be a change right?
 
 export const getBatchs = () => (dispatch, getState) => {
   const state = getState();
   if (!state.currentUser) return null;
   const jwt = state.currentUser.jwt;
-  console.log("ik ben boven jwt");
   if (isExpired(jwt)) return dispatch(logout());
 
   request

@@ -4,12 +4,10 @@ import { GET_BATCHS } from "../actions/batchs";
 The state will contain the games in an object with the game ID as key
 */
 
-export default (state = null, { type, payload }) => {
-  switch (type) {
+export default (state = null, action) => {
+  switch (action.type) {
     case GET_BATCHS:
-      return {
-        payload
-      };
+      return action.payload;
 
     default:
       return state;

@@ -13,7 +13,7 @@ export default class batchsController {
   @Get("/batchs")
   async allBatchs() {
     const batchs = await Batch.find();
-    return { batchs };
+    return batchs;
   }
   //http get :4000/batchs
 
@@ -26,8 +26,8 @@ export default class batchsController {
 
   @Get("/batchs/:id")
   async getBatchById(@Param("id") batchsId: number) {
-    const batch = await Batch.findOne(batchsId);
-    return { batch };
+    const batchs = await Batch.findOne(batchsId);
+    return batchs;
   }
   //http get :4000/batchs/2
 }
