@@ -1,14 +1,15 @@
 import {
   JsonController,
   Get,
-  //   Post,
-  //   HttpCode,
-  //   Body,
+  Post,
+  HttpCode,
+  Body,
   Param,
   Delete,
   NotFoundError
 } from "routing-controllers";
 import Students from "./entity";
+import Batch from "../batchs/entity";
 
 @JsonController()
 export default class batchsController {
@@ -20,28 +21,17 @@ export default class batchsController {
   // //http get :4000/students
 
   //-----------post student
-  //   @Post("/student")
-  //   @HttpCode(201)
-  //   async newStudent(@Body() student: Students) {
-  //     return student.save();
-  //   }
-  // http post :4000/student/ first_name=anouk last_name=rees photo="thisIsaPic.nl" batch_id=2
 
-  //   @Post("/games")
-  //   @HttpCode(201)
-  //   async createGame(@CurrentUser() user: User) {
-  //     const entity = await Game.create().save();
+  @Post("/batch/:id/student") //@Post("/student") //
+  @HttpCode(201)
+  async createStudent(@Body() student: Students, @Param("id") batchId: number) {
+    const batch = await Batch.findOne(batchId);
+    if (batch) student.batch = batch;
 
-  //     await Player.create({
-  //       game: entity,
-  //       user,
-  //       symbol: "x"
-  //     }).save();
-
-  //     const game = await Game.findOne(entity.id);
-
-  //     return game;
-  //   }
+    return student.save();
+  }
+  //http post :4000/batch/2/student firstName=anouk lastName=rees photo="thisIsaPic.nl" batch_id=2
+  //http post :4000/student firstName=anouk lastName=rees photo="thisIsaPic.nl" batch_id=2
 
   //-----------post student------------
 
