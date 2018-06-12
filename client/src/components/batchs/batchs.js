@@ -43,7 +43,23 @@ class batchs extends PureComponent {
           <div>
             <div className="all batch">batchlist</div>
             {console.log(batchs, "is this batch?")}
-            {batchs.map(x => <div>hoe vaak</div>)}
+            <tr key={""}>
+              <td> batchnr_____ </td>
+              <td>start date____</td>
+              <td>end date_____</td>
+            </tr>
+            {batchs.map(batch => (
+              <tr key={"placeholder"}>
+                <td>{batch.batchnr}</td>
+                <td> {batch.startdate}</td>
+                <td>{batch.startdate}</td>
+              </tr>
+            ))}
+            <tr>
+              <td>add</td>
+              <td>add</td>
+              <td>add</td>
+            </tr>
           </div>
         )}
 
