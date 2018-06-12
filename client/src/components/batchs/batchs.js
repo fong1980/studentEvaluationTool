@@ -14,12 +14,38 @@ class batchs extends PureComponent {
   render() {
     const { authenticated } = this.props; //games, users,createGame deleted
     const { batchs } = this.props;
+    //.log(this.props.batchs, "mount");
+
+    //console.log(this.props.batchs);
+    //console.log(typeof this.props.batchs);
+
+    // console.log(object1);
+    // console.log(typeof object1);
+    // console.log(Object.values(object1));
+
+    if (!authenticated) return <Redirect to="/login" />;
+    //if (!batchs) console.log("nee man");
+
+    // const render = () => {
+    //   if (batchs)
+    //     return (
+    //       <div>
+    //         {console.log(batchs, "---only one")}
+    //         {batchs.map(x => <div>hoe vaak</div>)}
+    //       </div>
+    //     );
+    // };
 
     return (
       <div>
-        {!batchs && <div>Loading...</div>}
-        {console.log(batchs, "the one and only")}
-        <div className="all batch">batchlist</div>
+        {!this.props.batchs && <div>Loading...</div>}
+        {this.props.batchs && (
+          <div>
+            <div className="all batch">batchlist</div>
+            {console.log(batchs, "is this batch?")}
+            {batchs.map(x => <div>hoe vaak</div>)}
+          </div>
+        )}
 
         <div className="form">-</div>
       </div>
@@ -36,3 +62,5 @@ export default connect(
   mapStateToProps,
   { getUsers, getBatchs }
 )(batchs);
+
+// {render()}
