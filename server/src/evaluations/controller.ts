@@ -5,7 +5,7 @@ import {
   HttpCode,
   Body,
   Param,
-  Delete,
+  //Delete,
   NotFoundError
 } from "routing-controllers";
 import Evaluations from "./entity";
