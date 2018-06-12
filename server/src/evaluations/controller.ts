@@ -11,8 +11,11 @@ import {
 import Evaluations from "./entity";
 import Students from "../students/entity";
 import Users from "../users/entity";
+import Batchs from "../batchs/entity";
 
 @JsonController()
+
+//---get all evaluations
 export default class EvaluationsController {
   @Get("/evaluations")
   async allEvaluations() {
@@ -21,6 +24,7 @@ export default class EvaluationsController {
   }
   //http get :4000/Evaluations
 
+  //---post evaluations using studId + user Id
   @Post("/evaluation/:stuId/:userId")
   @HttpCode(201)
   async createEvaluation(
@@ -41,13 +45,36 @@ export default class EvaluationsController {
     }).save();
     return newEvaluation;
   }
-
   // http post :4000/evaluation/1/1 color=green date="22-04-2019"
 
-  // @Get("/batchs/:id")
-  // async getBatchById(@Param("id") batchsId: number) {
-  //   const batch = await Batch.findOne(batchsId);
-  //   return { batch };
+  //--get evaluation by batch
+  @Get("/evaluationbatch/:id")
+  async getEvaluationsByBatch(@Param("id") batchsId: number) {
+    const batch = await Batchs.findOne(batchsId);
+    if (!batch) throw new NotFoundError("no batch find");
+
+    const student = batch.students;
+    //evaluations verder uitfilteren in de frontend
+
+    return student;
+  }
+  //http get :4000/evaluationbatch/2
+
+  // //get evaluation by batch
+  // @Get("/evaluationstud/:id")
+  // async getEvaluationBystud(@Param("id") batchsId: number) {
+  //   const student = await Students.findOne(batchsId);
+  //   const evaluation = await Evaluations.find({ student });
+
+  //   return evaluation;
   // }
-  // //http get :4000/batchs/2
 }
+
+// @Get("/evaluationbatch/:id")
+// async getEvaluationsByBatch(@Param("id") batchsId: number) {
+//   const batch = await Batchs.findOne(batchsId);
+//   if (!batch) throw new NotFoundError("no batch find");
+//   //const evaluation = await Evaluations.find({ student });
+//   // const evaluation = await G.findOne(batchsId);
+
+//   return batch.students;
