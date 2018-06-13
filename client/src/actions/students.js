@@ -4,14 +4,14 @@ import { logout } from "./users";
 import { isExpired } from "../jwt";
 
 export const GET_STUDENTS = "GET_STUDENTS";
-
 export const CREATE_STUDENT = "CREATE_STUDENT";
+export const DELETE_STUDENT = "DELETE_STUDENT";
 
-// export const createStudent = (batchId,studInfo) => {
+// export const deleteStudent = studId => {
 //   console.log("action--");
 //   return {
-//     type: CREATE_STUDENT,
-//     payload: "studId"
+//     type: DELETE_STUDENT,
+//     payload: studId
 //   };
 // };
 
@@ -56,3 +56,13 @@ export const createStudent = (batchId, studInfo) => (dispatch, getState) => {
     .catch(err => console.error(err));
 };
 //http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl" 2=batchid
+
+export const deleteStudent = studId => (dispatch, getState) => {
+  request.delete(`${baseUrl}/student/${studId}`).then(response =>
+    dispatch({
+      type: DELETE_STUDENT,
+      payload: response.body
+    })
+  );
+};
+//http delete :4000/student/2

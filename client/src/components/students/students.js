@@ -2,7 +2,11 @@ import React, { PureComponent } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUsers } from "../../actions/users";
-import { getStudents, createStudent } from "../../actions/students";
+import {
+  getStudents,
+  createStudent,
+  deleteStudent
+} from "../../actions/students";
 import { Link } from "react-router-dom";
 import { getStudent } from "../../actions/student";
 
@@ -14,6 +18,7 @@ class Students extends PureComponent {
     this.onclickgetStudents = this.onclickgetStudents.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteStudent = this.deleteStudent.bind(this);
   }
 
   componentWillMount() {
@@ -44,6 +49,11 @@ class Students extends PureComponent {
     // this.props.createBatch(this.state);
   }
 
+  deleteStudent(studId) {
+    console.log(studId, "ben ik er?");
+    this.props.deleteStudent(studId);
+  }
+
   render() {
     const { authenticated } = this.props; //games, users,createGame deleted
     if (!authenticated) return <Redirect to="/login" />;
@@ -72,7 +82,9 @@ class Students extends PureComponent {
                 <br />
                 First Name: {student.firstName} <br />
                 Last Name: {student.lastName} <br />
-                <button>Delete</button>
+                <button onClick={() => this.deleteStudent(student.id)}>
+                  Delete
+                </button>
                 <br />
               </div>
             ))}
@@ -122,7 +134,8 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, getStudents, getStudent, createStudent }
+  { getUsers, getStudents, getStudent, createStudent, deleteStudent }
 )(Students);
 
-//http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl"
+//http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl" //add student
+//http delete :4000/student/2

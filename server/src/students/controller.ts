@@ -49,7 +49,7 @@ export default class batchsController {
     const newStudent = await Students.create({ ...student, batch }).save(); //zie tic tak game.
     return newStudent;
   }
-  //http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl"
+  //http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl" 2=batchid
 
   //-----------delete student by id ------------
   @Delete("/student/:id")

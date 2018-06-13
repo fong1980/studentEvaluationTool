@@ -1,4 +1,8 @@
-import { GET_STUDENTS, CREATE_STUDENT } from "../actions/students";
+import {
+  GET_STUDENTS,
+  CREATE_STUDENT,
+  DELETE_STUDENT
+} from "../actions/students";
 
 export default (state = null, action) => {
   switch (action.type) {
@@ -6,6 +10,8 @@ export default (state = null, action) => {
       return action.payload;
     case CREATE_STUDENT:
       return [...state, action.payload];
+    case DELETE_STUDENT:
+      return action.payload;
 
     default:
       return state;
