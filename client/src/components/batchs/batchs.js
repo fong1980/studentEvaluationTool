@@ -1,10 +1,11 @@
 import React, { PureComponent } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { getUsers } from "../../actions/users";
-import { getBatchs, deleteBatch } from "../../actions/batchs";
+
+import { getBatchs } from "../../actions/batchs";
 import { Link } from "react-router-dom";
 import { getStudents } from "../../actions/students";
+import { getUsers } from "../../actions/users";
 
 class batchs extends PureComponent {
   constructor(props) {
@@ -25,6 +26,7 @@ class batchs extends PureComponent {
   componentDidMount() {
     if (this.props.batchs === null) this.props.getBatchs(); //=== null
     if (this.props.authenticated) {
+      if (this.props.users === null) this.props.getUsers();
     }
   }
 
@@ -42,8 +44,8 @@ class batchs extends PureComponent {
 
   render() {
     const { authenticated } = this.props; //games, users,createGame deleted
-    const { batchs } = this.props;
     if (!authenticated) return <Redirect to="/login" />;
+    const { batchs } = this.props;
 
     return (
       <div>
@@ -54,7 +56,7 @@ class batchs extends PureComponent {
             {batchs.map((batch, i) => (
               <div>
                 <Link
-                  to={`/studens/${batch.id}`}
+                  to={`/students/`} //${batch.id}
                   onClick={() => this.onclickgetStudents(batch.id)}
                 >
                   nr:{batch.batchnr}

@@ -4,7 +4,6 @@ import { logout } from "./users";
 import { isExpired } from "../jwt";
 
 export const GET_BATCHS = "GET_BATCHS";
-export const DELETE_BATCH = "DELETE_BATCH";
 
 export const getBatchs = () => (dispatch, getState) => {
   const state = getState();
