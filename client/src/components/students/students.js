@@ -24,8 +24,6 @@ class Students extends PureComponent {
       const { id } = this.props.match.params;
       console.log(id, "---");
       if (!this.props.quiz) {
-        console.log("waar ben ik");
-        //this.props.fetchQuiz(id)
       }
 
       //getStudents
@@ -41,7 +39,6 @@ class Students extends PureComponent {
     const { authenticated } = this.props; //games, users,createGame deleted
     if (!authenticated) return <Redirect to="/login" />;
     const { students } = this.props;
-    console.log(students, "adsf");
 
     return (
       <div>
