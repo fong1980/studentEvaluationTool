@@ -14,7 +14,7 @@ class batchs extends PureComponent {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onclickgetStudents = this.onclickgetStudents.bind(this);
 
-    //this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onclickgetStudents(batchId) {
@@ -32,14 +32,14 @@ class batchs extends PureComponent {
 
   handleInputChange(e) {
     this.setState({
-      batchnr: e.target.value,
-      startdate: e.target.value
+      [e.target.name]: e.target.value
     });
     //console.log(this.state.batchnr, "i am in the state");
   }
 
   handleSubmit(event) {
-    //event.preventDefault();
+    event.preventDefault();
+    console.log(this.state);
   }
 
   render() {
@@ -67,26 +67,27 @@ class batchs extends PureComponent {
                 <br />
               </div>
             ))}
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <input
-                name={"batchnr"}
+                name="batchNr"
                 placeholder="batchnr"
                 value={this.state.batchnr}
                 onChange={this.handleInputChange}
               />
 
               <input
-                name={"startDate"}
-                placeholder={this.state.startdate}
-                value=""
-                //onChange={this.handleInputChange}
+                name="startDate"
+                type="date"
+                value={this.state.startdate}
+                onChange={this.handleInputChange}
               />
 
               <input
-                name={"endDate"}
+                name="endDate"
+                type="date"
                 placeholder="end date"
-                value=""
-                //onChange={this.handleInputChange}
+                value={this.state.endDate}
+                onChange={this.handleInputChange}
               />
 
               <input type="submit" value="Submit" />
