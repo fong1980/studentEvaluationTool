@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getUsers } from "../../actions/users";
 import { getStudents } from "../../actions/students";
 import { Link } from "react-router-dom";
+import { getStudent } from "../../actions/student";
 
 class Students extends PureComponent {
   constructor(props) {
@@ -31,8 +32,9 @@ class Students extends PureComponent {
     }
   }
 
-  onclickgetStudents() {
-    console.log("yes, ik ben geclickt");
+  onclickgetStudents(studId) {
+    this.props.getStudent(studId);
+    console.log(studId);
   }
 
   render() {
@@ -79,5 +81,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, getStudents }
+  { getUsers, getStudents, getStudent }
 )(Students);
