@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getBatchs } from "../../actions/batchs";
+import { getBatchs, createBatch } from "../../actions/batchs"; //createBatch
 import { Link } from "react-router-dom";
 import { getStudents } from "../../actions/students";
 import { getUsers } from "../../actions/users";
@@ -39,6 +39,7 @@ class batchs extends PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.props.createBatch(this.state);
     console.log(this.state);
   }
 
@@ -69,21 +70,21 @@ class batchs extends PureComponent {
             ))}
             <form onSubmit={this.handleSubmit}>
               <input
-                name="batchNr"
+                name="batchnr"
                 placeholder="batchnr"
                 value={this.state.batchnr}
                 onChange={this.handleInputChange}
               />
 
               <input
-                name="startDate"
+                name="startdate"
                 type="date"
                 value={this.state.startdate}
                 onChange={this.handleInputChange}
               />
 
               <input
-                name="endDate"
+                name="enddate"
                 type="date"
                 placeholder="end date"
                 value={this.state.endDate}
@@ -108,5 +109,12 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, getBatchs, getStudents }
+  { getUsers, getBatchs, getStudents, createBatch }
 )(batchs);
+
+// {
+// batchnr(pin): "112"
+// startdate(pin): "0222-02-22"
+// enddate(pin): "0002-02-22"
+// id(pin): 13
+// }
