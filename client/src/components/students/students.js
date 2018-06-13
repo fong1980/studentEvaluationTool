@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUsers } from "../../actions/users";
-import { getStudents } from "../../actions/students";
+import { getStudents, createStudent } from "../../actions/students";
 import { Link } from "react-router-dom";
 import { getStudent } from "../../actions/student";
 
@@ -38,7 +38,9 @@ class Students extends PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    console.log(this.props.match.params.id, this.state);
+    this.props.createStudent(this.props.match.params.id, this.state);
+
     // this.props.createBatch(this.state);
   }
 
@@ -55,23 +57,24 @@ class Students extends PureComponent {
           <div>
             batchnr:{id}
             {students.map((student, i) => (
-              <Link
-                to={`/student/${student.id}`} //
-                onClick={() => this.onclickgetStudents(student.id)}
-              >
-                <div>
+              <div>
+                <Link
+                  to={`/student/${student.id}`} //
+                  onClick={() => this.onclickgetStudents(student.id)}
+                >
                   <img
                     src={student.photo}
                     alt={student.firstName}
                     height="120"
                     width="100"
                   />
-                  <br />
-                  First Name: {student.firstName} <br />
-                  Last Name: {student.lastName} <br />
-                  <br />
-                </div>
-              </Link>
+                </Link>
+                <br />
+                First Name: {student.firstName} <br />
+                Last Name: {student.lastName} <br />
+                <button>Delete</button>
+                <br />
+              </div>
             ))}
           </div>
         )}
@@ -101,6 +104,10 @@ class Students extends PureComponent {
             />
 
             <input type="submit" value="Submit" />
+            <br />
+            <br />
+            <br />
+            <br />
           </form>
         </div>
       </div>
@@ -115,7 +122,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, getStudents, getStudent }
+  { getUsers, getStudents, getStudent, createStudent }
 )(Students);
 
 //http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl"
