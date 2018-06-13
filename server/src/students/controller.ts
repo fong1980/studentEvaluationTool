@@ -21,7 +21,7 @@ export default class batchsController {
   }
   // //http get :4000/students
 
-  //--------get student by batchnr
+  //--------get students by batchnr
   @Get("/studentBatch/:id")
   async getStudentByBatch(@Param("id") batchId: number) {
     const batch = await Batch.findOne(batchId);
