@@ -6,13 +6,6 @@ import { isExpired } from "../jwt";
 export const GET_BATCHS = "GET_BATCHS";
 export const DELETE_BATCH = "DELETE_BATCH";
 
-// export const getBatchs = () => {
-//   return {
-//     type: GET_BATCHS,
-//     payload: "dit is een payload"
-//   };
-// };
-
 export const getBatchs = () => (dispatch, getState) => {
   const state = getState();
   if (!state.currentUser) return null;
@@ -29,6 +22,13 @@ export const getBatchs = () => (dispatch, getState) => {
     )
     .catch(err => alert(err));
 };
+
+// export const getBatchs = () => {
+//   return {
+//     type: GET_BATCHS,
+//     payload: "dit is een payload"
+//   };
+// };
 
 // export const getGames = () => (dispatch, getState) => {
 //   const state = getState();

@@ -4,6 +4,7 @@ import login from "./login";
 import currentUser from "./currentUser";
 import signup from "./signup";
 import batchs from "./batchsReducer";
+import students from "./studentsReducer";
 
 export default {
   games,
@@ -11,5 +12,6 @@ export default {
   login,
   currentUser,
   signup,
-  batchs
+  batchs,
+  students
 };

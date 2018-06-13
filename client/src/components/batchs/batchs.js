@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getUsers } from "../../actions/users";
 import { getBatchs, deleteBatch } from "../../actions/batchs";
 import { Link } from "react-router-dom";
+import { getStudents } from "../../actions/students";
 
 class batchs extends PureComponent {
   constructor(props) {
@@ -15,10 +16,10 @@ class batchs extends PureComponent {
     //this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  onclickgetStudents(id) {
+  onclickgetStudents(batchId) {
+    this.props.getStudents(batchId);
     //getStudents(id);
     //http get :4000/studentBatch/2
-    console.log(id, "---------");
   }
 
   componentDidMount() {
@@ -32,7 +33,7 @@ class batchs extends PureComponent {
       batchnr: e.target.value,
       startdate: e.target.value
     });
-    console.log(this.state.batchnr, "i am in the state");
+    //console.log(this.state.batchnr, "i am in the state");
   }
 
   handleSubmit(event) {
@@ -52,7 +53,6 @@ class batchs extends PureComponent {
             <div className="all batch">batchlist</div>
             {batchs.map((batch, i) => (
               <div>
-                {console.log(batch.id, "id")}
                 <Link
                   to={`/studens/${batch.id}`}
                   onClick={() => this.onclickgetStudents(batch.id)}
@@ -105,5 +105,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, getBatchs }
+  { getUsers, getBatchs, getStudents }
 )(batchs);
