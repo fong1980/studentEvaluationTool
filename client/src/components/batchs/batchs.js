@@ -56,7 +56,7 @@ class batchs extends PureComponent {
             {batchs.map((batch, i) => (
               <div>
                 <Link
-                  to={`/students/`} //${batch.id}
+                  to={`/students/${batch.id}`}
                   onClick={() => this.onclickgetStudents(batch.id)}
                 >
                   nr:{batch.batchnr}

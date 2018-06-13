@@ -3,17 +3,20 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUsers } from "../../actions/users";
 import { getStudents } from "../../actions/students";
+import { Link } from "react-router-dom";
 
 class Students extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
 
+    this.onclickgetStudents = this.onclickgetStudents.bind(this);
     //this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentWillMount() {
-    if (this.props.students === null) this.props.getStudents();
+    const { id } = this.props.match.params;
+    if (this.props.students === null) this.props.getStudents(id);
     if (this.props.authenticated) {
       if (this.props.users === null) this.props.getUsers();
 
@@ -28,16 +31,50 @@ class Students extends PureComponent {
     }
   }
 
+  onclickgetStudents() {
+    console.log("yes, ik ben geclickt");
+  }
+
   render() {
     const { authenticated } = this.props; //games, users,createGame deleted
     if (!authenticated) return <Redirect to="/login" />;
+    const { students } = this.props;
+    console.log(students, "adsf");
 
-    return <div>testadsadsf</div>;
+    return (
+      <div>
+        {!this.props.students && <div>Loading...</div>}
+        {this.props.students && (
+          <div>
+            {students.map((student, i) => (
+              <Link
+                to={`/student/${student.id}`} //
+                onClick={() => this.onclickgetStudents(student.id)}
+              >
+                <div>
+                  <img
+                    src={student.photo}
+                    alt={student.firstName}
+                    height="100"
+                    width="100"
+                  />
+                  <br />
+                  First Name: {student.firstName} <br />
+                  Last Name: {student.lastName} <br />
+                  <br />
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   }
 }
 const mapStateToProps = state => ({
   authenticated: state.currentUser !== null,
-  users: state.users === null ? null : state.users
+  users: state.users === null ? null : state.users,
+  students: state.students
 });
 
 export default connect(
