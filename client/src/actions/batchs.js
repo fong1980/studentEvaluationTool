@@ -54,4 +54,4 @@ export const createBatch = newBatch => (dispatch, getState) => {
 //Creact new bach
 // http post :4000/batch/ batchnr=10 startdate="22-04-2019" enddate="22-06-2019"
 
-//batchNr: "1" startDate: "0011-11-11" enddate: "0011-11-11"
+//http post :4000/batch/ batchNr: "1" startDate: "0011-11-11" enddate: "0011-11-11"

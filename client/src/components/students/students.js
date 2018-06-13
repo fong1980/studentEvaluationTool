@@ -12,6 +12,7 @@ class Students extends PureComponent {
     this.state = {};
 
     this.onclickgetStudents = this.onclickgetStudents.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     //this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -20,13 +21,6 @@ class Students extends PureComponent {
     if (this.props.students === null) this.props.getStudents(id);
     if (this.props.authenticated) {
       if (this.props.users === null) this.props.getUsers();
-
-      const { id } = this.props.match.params;
-      console.log(id, "---");
-      if (!this.props.quiz) {
-      }
-
-      //getStudents
     }
   }
 
@@ -35,16 +29,25 @@ class Students extends PureComponent {
     console.log(studId);
   }
 
+  handleInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+    //console.log(this.state.batchnr, "i am in the state");
+  }
+
   render() {
     const { authenticated } = this.props; //games, users,createGame deleted
     if (!authenticated) return <Redirect to="/login" />;
     const { students } = this.props;
+    const { id } = this.props.match.params;
 
     return (
       <div>
         {!this.props.students && <div>Loading...</div>}
         {this.props.students && (
           <div>
+            batchnr:{id}
             {students.map((student, i) => (
               <Link
                 to={`/student/${student.id}`} //
@@ -54,7 +57,7 @@ class Students extends PureComponent {
                   <img
                     src={student.photo}
                     alt={student.firstName}
-                    height="100"
+                    height="120"
                     width="100"
                   />
                   <br />
@@ -66,6 +69,34 @@ class Students extends PureComponent {
             ))}
           </div>
         )}
+
+        <div>
+          create student
+          <form onSubmit={this.handleSubmit}>
+            <input
+              name="firstName"
+              placeholder="firstName"
+              value={this.state.firstName}
+              onChange={this.handleInputChange}
+            />
+
+            <input
+              name="lastName"
+              placeholder="lastName"
+              value={this.state.lastName}
+              onChange={this.handleInputChange}
+            />
+
+            <input
+              name="photo"
+              placeholder="photo link"
+              value={this.state.photo}
+              onChange={this.handleInputChange}
+            />
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
       </div>
     );
   }
@@ -80,3 +111,5 @@ export default connect(
   mapStateToProps,
   { getUsers, getStudents, getStudent }
 )(Students);
+
+//http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl"
