@@ -13,7 +13,7 @@ class Students extends PureComponent {
 
     this.onclickgetStudents = this.onclickgetStudents.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -34,6 +34,12 @@ class Students extends PureComponent {
       [e.target.name]: e.target.value
     });
     //console.log(this.state.batchnr, "i am in the state");
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state);
+    // this.props.createBatch(this.state);
   }
 
   render() {
