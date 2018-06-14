@@ -45,8 +45,6 @@ class Students extends PureComponent {
     event.preventDefault();
     console.log(this.props.match.params.id, this.state);
     this.props.createStudent(this.props.match.params.id, this.state);
-
-    // this.props.createBatch(this.state);
   }
 
   deleteStudent(studId) {
@@ -62,36 +60,38 @@ class Students extends PureComponent {
 
     return (
       <div>
-        {!this.props.students && <div>Loading...</div>}
-        {this.props.students && (
-          <div>
-            batchnr:{id}
-            {students.map((student, i) => (
-              <div>
-                <Link
-                  to={`/student/${student.id}`} //
-                  onClick={() => this.onclickgetStudents(student.id)}
-                >
-                  <img
-                    src={student.photo}
-                    alt={student.firstName}
-                    height="120"
-                    width="100"
-                  />
-                </Link>
-                <br />
-                First Name: {student.firstName} <br />
-                Last Name: {student.lastName} <br />
-                <button onClick={() => this.deleteStudent(student.id)}>
-                  Delete
-                </button>
-                <br />
-              </div>
-            ))}
-          </div>
-        )}
+        <div classname="show students">
+          {!this.props.students && <div>Loading...</div>}
+          {this.props.students && (
+            <div>
+              batchnr:{id}
+              {students.map((student, i) => (
+                <div>
+                  <Link
+                    to={`/student/${student.id}`} //
+                    onClick={() => this.onclickgetStudents(student.id)}
+                  >
+                    <img
+                      src={student.photo}
+                      alt={student.firstName}
+                      height="120"
+                      width="100"
+                    />
+                  </Link>
+                  <br />
+                  First Name: {student.firstName} <br />
+                  Last Name: {student.lastName} <br />
+                  <button onClick={() => this.deleteStudent(student.id)}>
+                    Delete
+                  </button>
+                  <br />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
-        <div>
+        <div className="add student">
           create student
           <form onSubmit={this.handleSubmit}>
             <input
