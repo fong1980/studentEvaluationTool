@@ -72,4 +72,5 @@ export default connect(
   { getUsers, getStudent }
 )(Student);
 
-// / {student.evaluations.map(evaluation =>"test"}
+// http post :4000/evaluation/1/1 remark=favorstudent color=green date="22-04-2019"
+// @Post("/evaluation/:stuId/:userId")

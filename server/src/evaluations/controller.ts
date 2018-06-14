@@ -35,8 +35,8 @@ export default class EvaluationsController {
     const student = await Students.findOne(studId);
     const user = await Users.findOne(userId);
 
-    if (!student) throw new NotFoundError("no batch find");
-    if (!user) throw new NotFoundError("no batch find");
+    if (!student) throw new NotFoundError("no student find");
+    if (!user) throw new NotFoundError("no user find");
 
     const newEvaluation = await Evaluations.create({
       ...evaluations,
@@ -45,7 +45,8 @@ export default class EvaluationsController {
     }).save();
     return newEvaluation;
   }
-  // http post :4000/evaluation/1/1 color=green date="22-04-2019"
+  // http post :4000/evaluation/1/1 remark=favorstudent color=green date="22-04-2019"
+  // @Post("/evaluation/:stuId/:userId")
 
   //--get evaluation by batch
   @Get("/evaluationbatch/:id")

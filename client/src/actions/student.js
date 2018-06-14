@@ -4,15 +4,6 @@ import { logout } from "./users";
 import { isExpired } from "../jwt";
 
 export const GET_STUDENT = "GET_STUDENT";
-export const CREATE_STUDENT = "CREATE_STUDENT";
-
-export const create = studId => {
-  console.log("action--");
-  return {
-    type: CREATE_STUDENT,
-    payload: "studId"
-  };
-};
 
 export const getStudent = studId => (dispatch, getState) => {
   //change functionname + parameter

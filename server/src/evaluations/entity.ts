@@ -13,6 +13,9 @@ export default class Evaluation extends BaseEntity {
   color: string;
 
   @Column("text", { nullable: false })
+  remark: string;
+
+  @Column("text", { nullable: false })
   date: string;
 
   @ManyToOne(_ => Student, student => student.evaluations, {
