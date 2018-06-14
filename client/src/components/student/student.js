@@ -10,6 +10,8 @@ class Student extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -18,6 +20,19 @@ class Student extends PureComponent {
     if (this.props.authenticated) {
       if (this.props.users === null) this.props.getUsers();
     }
+  }
+
+  handleInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+    console.log(this.state, "-----");
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    console.log(this.state, "ik ben in submit");
   }
 
   render() {
@@ -56,6 +71,53 @@ class Student extends PureComponent {
             </div>
           </div>
         )}
+
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              date:
+              <input
+                name="date"
+                type="date"
+                value={this.state.date}
+                onChange={this.handleInputChange}
+              />
+              <br />
+              <input
+                name="color"
+                type="radio"
+                value="red"
+                onChange={this.handleInputChange}
+              />
+              Red <br />
+              <input
+                name="color"
+                type="radio"
+                value="orange"
+                onChange={this.handleInputChange}
+              />Orange<br />
+              <input
+                name="color"
+                type="radio"
+                value="green"
+                onChange={this.handleInputChange}
+              />Green<br />
+              <br />
+              remark{" "}
+              <textarea
+                name="remark"
+                onChange={this.handleInputChange}
+                value={this.state.remark}
+                rows="4"
+                cols="50"
+              />
+            </label>
+            <br />
+            <input type="submit" value="Submit" />
+
+            <input type="submit" value="SAVE, next student" />
+          </form>
+        </div>
       </div>
     );
   }
@@ -72,5 +134,5 @@ export default connect(
   { getUsers, getStudent }
 )(Student);
 
-// http post :4000/evaluation/1/1 remark=favorstudent color=green date="22-04-2019"
+// http post :4000/evaluation/11/1 remark=favorstudent date="22-04-2019" color=green
 // @Post("/evaluation/:stuId/:userId")
