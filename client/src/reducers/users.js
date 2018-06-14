@@ -16,9 +16,9 @@ export default (state = null, { type, payload }) => {
 
     case UPDATE_USER:
       return {
-        payload
-        // ...state,
-        // [payload.id]: payload
+        // payload
+        ...state,
+        [payload.id]: payload
       };
 
     case UPDATE_USERS:

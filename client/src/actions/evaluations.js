@@ -12,7 +12,7 @@ export const ADD_EVALUATION = "ADD_EVALUATION";
 //   };
 // };
 
-export const addEvaluation = (studId, newEvaluation) => (
+export const addEvaluation = (teachterId, studId, newEvaluation) => (
   //userId later toevoegen
   dispatch,
   getState
@@ -23,9 +23,11 @@ export const addEvaluation = (studId, newEvaluation) => (
   const jwt = state.currentUser.jwt;
 
   if (isExpired(jwt)) return dispatch(logout());
+  console.log("-9999999999-");
+  console.log(studId, "------", teachterId);
 
   request
-    .post(`${baseUrl}/evaluation/${studId}/1`)
+    .post(`${baseUrl}/evaluation/${studId}/${teachterId}`)
     .set("Authorization", `Bearer ${jwt}`)
     .send(newEvaluation)
     .then(response =>

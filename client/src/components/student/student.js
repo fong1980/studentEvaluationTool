@@ -6,6 +6,7 @@ import { getStudents } from "../../actions/students";
 import { Link } from "react-router-dom";
 import { getStudent } from "../../actions/student";
 import { addEvaluation } from "../../actions/evaluations";
+import { userId } from "../../jwt";
 
 class Student extends PureComponent {
   constructor(props) {
@@ -32,8 +33,12 @@ class Student extends PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    this.props.addEvaluation(this.props.student.id, this.state);
+    console.log(this.props.user.id, "en dit dan?");
+    this.props.addEvaluation(
+      this.props.user.id, //id teacher
+      this.props.student.id, //id student
+      this.state
+    );
   }
 
   render() {
@@ -127,7 +132,11 @@ class Student extends PureComponent {
 const mapStateToProps = state => ({
   authenticated: state.currentUser !== null,
   users: state.users === null ? null : state.users,
-  student: state.student
+  student: state.student,
+  user:
+    state.currentUser &&
+    state.users &&
+    state.users[userId(state.currentUser.jwt)]
 });
 
 export default connect(
@@ -137,3 +146,12 @@ export default connect(
 
 // http post :4000/evaluation/11/1 remark=favorstudent date="22-04-2019" color=green
 // @Post("/evaluation/:stuId/:userId")
+
+// import { userId } from "../../jwt";
+// // const mapStateToProps = state => ({
+// //   user:
+// //     state.currentUser &&
+// //     state.users &&
+// //     state.users[userId(state.currentUser.jwt)]
+// // });
+// {this.props.user.firstname}
