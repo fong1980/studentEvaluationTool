@@ -43,7 +43,7 @@ class Students extends PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.props.match.params.id, this.state);
+    //console.log(this.props.match.params.id, this.state);
     this.props.createStudent(this.props.match.params.id, this.state);
   }
 
@@ -51,11 +51,33 @@ class Students extends PureComponent {
     this.props.deleteStudent(studId);
   }
   getAllcolor(value) {
-    value.map(x =>
-      x.evaluations.map(evaluation => console.log(evaluation.color))
+    const array = [];
+    value.map((
+      x //error?
+    ) =>
+      x.evaluations.map(
+        evaluation => array.push({ color: evaluation.color, id: x.id }) //all colors and id in array.
+      )
     );
-    //console.log(value2);
-    //console.log(evaluation)
+    //const rand = array[Math.floor(Math.random() * array.length)];
+
+    const chance = Math.round(Math.random() * 100);
+    // console.log(choic§e, "wat is het nummer?");
+
+    const redArray = array.filter(x => x.color == "red");
+    const orangeArray = array.filter(x => x.color == "orange");
+    const greenArray = array.filter(x => x.color == "green");
+
+    if (chance < 45) {
+      return redArray[Math.floor(Math.random() * redArray.length)].id;
+      //console.log(redArray[Math.floor(Math.random() * redArray.length)].id);
+    }
+    if (chance > 45 && chance < 80) {
+      return orangeArray[Math.floor(Math.random() * orangeArray.length)];
+    }
+    if (chance >= 81) {
+      return greenArray[Math.floor(Math.random() * greenArray.length)];
+    }
   }
 
   render() {
@@ -69,7 +91,7 @@ class Students extends PureComponent {
         {!students && <div>Loading...</div>}
         {students && (
           <div>
-            {this.getAllcolor(students)}
+            {console.log(this.getAllcolor(students), "jo man")}
             batchnr:{id}
             {students.map((student, i) => (
               <div>
@@ -95,6 +117,9 @@ class Students extends PureComponent {
             ))}
           </div>
         )}
+        <div>
+          <button>pick a random student</button>
+        </div>
 
         <div>
           create student
@@ -144,3 +169,6 @@ export default connect(
 
 //http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl" //add student
 //http delete :4000/student/2
+
+//rand = myArray[Math.floor(Math.random() * myArray.length)]; //random array
+//array.filter(x => x.color == "red"), "red"); filter for green/red/etc.
