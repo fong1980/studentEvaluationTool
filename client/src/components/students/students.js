@@ -19,6 +19,7 @@ class Students extends PureComponent {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteStudent = this.deleteStudent.bind(this);
+    this.pickStudent = this.pickStudent.bind(this);
   }
 
   componentWillMount() {
@@ -50,13 +51,26 @@ class Students extends PureComponent {
   deleteStudent(studId) {
     this.props.deleteStudent(studId);
   }
-  getAllcolor(value) {
+
+  getLatestColor(evaluations) {
+    evaluations.sort(function(obj1, obj2) {
+      return new Date(obj2.date) - new Date(obj1.date);
+    });
+
+    return evaluations[0].color;
+  }
+
+  pickStudent(value) {
     const array = [];
-    value.map((
-      x //error?
-    ) =>
+    value.map(x =>
       x.evaluations.map(
-        evaluation => array.push({ color: evaluation.color, id: x.id }) //all colors and id in array.
+        evaluation =>
+          array.push({
+            color: evaluation.color,
+            id: x.id,
+            firstname: x.firstName,
+            lastname: x.lastName
+          }) //all colors and id in array.
       )
     );
     //const rand = array[Math.floor(Math.random() * array.length)];
@@ -64,20 +78,32 @@ class Students extends PureComponent {
     const chance = Math.round(Math.random() * 100);
     // console.log(choic§e, "wat is het nummer?");
 
-    const redArray = array.filter(x => x.color == "red");
-    const orangeArray = array.filter(x => x.color == "orange");
-    const greenArray = array.filter(x => x.color == "green");
+    const redArray = array.filter(x => x.color === "red");
+    const orangeArray = array.filter(x => x.color === "orange");
+    const greenArray = array.filter(x => x.color === "green");
+    var student = 0;
 
     if (chance < 45) {
-      return redArray[Math.floor(Math.random() * redArray.length)].id;
+      student = redArray[Math.floor(Math.random() * redArray.length)];
+
       //console.log(redArray[Math.floor(Math.random() * redArray.length)].id);
     }
     if (chance > 45 && chance < 80) {
-      return orangeArray[Math.floor(Math.random() * orangeArray.length)];
+      student = orangeArray[Math.floor(Math.random() * orangeArray.length)];
     }
     if (chance >= 81) {
-      return greenArray[Math.floor(Math.random() * greenArray.length)];
+      student = greenArray[Math.floor(Math.random() * greenArray.length)];
     }
+    console.log(student, "sjjjj");
+    alert(
+      "the student is " +
+        "name:" +
+        student.firstname +
+        " " +
+        student.lastname +
+        " " +
+        student.color
+    );
   }
 
   render() {
@@ -91,7 +117,6 @@ class Students extends PureComponent {
         {!students && <div>Loading...</div>}
         {students && (
           <div>
-            {console.log(this.getAllcolor(students), "jo man")}
             batchnr:{id}
             {students.map((student, i) => (
               <div>
@@ -109,6 +134,7 @@ class Students extends PureComponent {
                 <br />
                 First Name: {student.firstName} <br />
                 Last Name: {student.lastName} <br />
+                Last Color:{this.getLatestColor(student.evaluations)} <br />
                 <button onClick={() => this.deleteStudent(student.id)}>
                   Delete
                 </button>
@@ -117,9 +143,7 @@ class Students extends PureComponent {
             ))}
           </div>
         )}
-        <div>
-          <button>pick a random student</button>
-        </div>
+        <div />
 
         <div>
           create student
@@ -146,6 +170,11 @@ class Students extends PureComponent {
             />
 
             <input type="submit" value="Submit" />
+            <br />
+            <br />
+            <button onClick={() => this.pickStudent(students)}>
+              pick a random student
+            </button>
             <br />
             <br />
             <br />
