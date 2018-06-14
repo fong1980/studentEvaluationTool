@@ -48,8 +48,14 @@ class Students extends PureComponent {
   }
 
   deleteStudent(studId) {
-    console.log(studId, "ben ik er?");
     this.props.deleteStudent(studId);
+  }
+  getAllcolor(value) {
+    value.map(x =>
+      x.evaluations.map(evaluation => console.log(evaluation.color))
+    );
+    //console.log(value2);
+    //console.log(evaluation)
   }
 
   render() {
@@ -60,38 +66,37 @@ class Students extends PureComponent {
 
     return (
       <div>
-        <div classname="show students">
-          {!this.props.students && <div>Loading...</div>}
-          {this.props.students && (
-            <div>
-              batchnr:{id}
-              {students.map((student, i) => (
-                <div>
-                  <Link
-                    to={`/student/${student.id}`} //
-                    onClick={() => this.onclickgetStudents(student.id)}
-                  >
-                    <img
-                      src={student.photo}
-                      alt={student.firstName}
-                      height="120"
-                      width="100"
-                    />
-                  </Link>
-                  <br />
-                  First Name: {student.firstName} <br />
-                  Last Name: {student.lastName} <br />
-                  <button onClick={() => this.deleteStudent(student.id)}>
-                    Delete
-                  </button>
-                  <br />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        {!students && <div>Loading...</div>}
+        {students && (
+          <div>
+            {this.getAllcolor(students)}
+            batchnr:{id}
+            {students.map((student, i) => (
+              <div>
+                <Link
+                  to={`/student/${student.id}`} //
+                  onClick={() => this.onclickgetStudents(student.id)}
+                >
+                  <img
+                    src={student.photo}
+                    alt={student.firstName}
+                    height="120"
+                    width="100"
+                  />
+                </Link>
+                <br />
+                First Name: {student.firstName} <br />
+                Last Name: {student.lastName} <br />
+                <button onClick={() => this.deleteStudent(student.id)}>
+                  Delete
+                </button>
+                <br />
+              </div>
+            ))}
+          </div>
+        )}
 
-        <div className="add student">
+        <div>
           create student
           <form onSubmit={this.handleSubmit}>
             <input
