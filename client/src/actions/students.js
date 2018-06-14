@@ -61,7 +61,7 @@ export const deleteStudent = studId => (dispatch, getState) => {
   request.delete(`${baseUrl}/student/${studId}`).then(response =>
     dispatch({
       type: DELETE_STUDENT,
-      payload: response.body
+      payload: studId
     })
   );
 };
