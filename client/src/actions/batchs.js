@@ -31,7 +31,6 @@ export const getBatchs = () => (dispatch, getState) => {
 // };
 
 export const createBatch = newBatch => (dispatch, getState) => {
-  console.log(newBatch, "ik ben in de ationcreator");
   const state = getState();
   if (!state.currentUser) return null;
   const jwt = state.currentUser.jwt;

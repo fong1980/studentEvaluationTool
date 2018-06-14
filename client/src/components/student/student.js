@@ -5,6 +5,7 @@ import { getUsers } from "../../actions/users";
 import { getStudents } from "../../actions/students";
 import { Link } from "react-router-dom";
 import { getStudent } from "../../actions/student";
+import { addEvaluation } from "../../actions/evaluations";
 
 class Student extends PureComponent {
   constructor(props) {
@@ -32,7 +33,7 @@ class Student extends PureComponent {
   handleSubmit(event) {
     event.preventDefault();
 
-    console.log(this.state, "ik ben in submit");
+    this.props.addEvaluation(this.props.student.id, this.state);
   }
 
   render() {
@@ -131,7 +132,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, getStudent }
+  { getUsers, getStudent, addEvaluation }
 )(Student);
 
 // http post :4000/evaluation/11/1 remark=favorstudent date="22-04-2019" color=green
