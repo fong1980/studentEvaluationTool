@@ -15,7 +15,9 @@ export default class Evaluation extends BaseEntity {
   @Column("text", { nullable: false })
   date: string;
 
-  @ManyToOne(_ => Student, student => student.evaluations)
+  @ManyToOne(_ => Student, student => student.evaluations, {
+    onDelete: "CASCADE"
+  })
   student: Student;
 
   @ManyToOne(_ => User, user => user.evaluations)
@@ -24,3 +26,5 @@ export default class Evaluation extends BaseEntity {
 
 // @ManyToOne(_ => Batch, batch => batch.students)
 // batch: Batch;
+
+//https://github.com/typeorm/typeorm/issues/1460
