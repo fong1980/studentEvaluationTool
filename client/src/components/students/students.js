@@ -31,28 +31,35 @@ class Students extends PureComponent {
   }
 
   allScoreByBatch(batchEvaluation) {
+    {
+      batchEvaluation.length === 0 && <div>....loading</div>;
+    }
     const allColorBatch = [];
-    // console.log(batchEvaluation, "====");
-    let allcolor = [];
-    batchEvaluation.map(student =>
-      student.evaluations.map(evaluations => {
-        allcolor.push(evaluations.color);
-        //console.log(evaluations.color);
-      })
-    );
+
+    let allcolor = ["red", "red"];
+    console.log(batchEvaluation, "---------");
+
+    // batchEvaluation.map(student =>
+    //   student.evaluations.map(evaluations => {
+    //     console.log(evaluations, "dsaf-----"); //hier zit nog een bug?
+    //     allcolor.push(evaluations.color);
+    //     //console.log(evaluations.color);
+    //   })
+    // );
     const total = allcolor.length;
     const red = allcolor.filter(x => x === "red").length;
     const orange = allcolor.filter(x => x === "orange").length;
     const green = allcolor.filter(x => x === "green").length;
+    console.log("total:", total);
+    console.log("red:", red);
+    console.log("orange:", orange);
+    console.log("green:", green);
 
-    console.log(this.calcPercentage(2, 10));
-    // student.map(student2 => console.log(student2, "test")));
-    console.log(allcolor, "is dit correct?");
     return (
       <div>
         <div>red {this.calcPercentage(red, total)} %</div>
         <div>orange {this.calcPercentage(orange, total)} %</div>
-        <div>green {this.calcPercentage(red, total)} %</div>
+        <div>green {this.calcPercentage(green, total)} %</div>
       </div>
     );
   }
@@ -76,6 +83,7 @@ class Students extends PureComponent {
   handleSubmit(event) {
     event.preventDefault();
     this.props.createStudent(this.props.match.params.id, this.state);
+    console.log(this.state);
   }
 
   deleteStudent(studId) {
@@ -84,15 +92,14 @@ class Students extends PureComponent {
 
   getLatestColor(evaluations) {
     //console.log(evaluations, "adsfadfadfadfadf----");
-
-    if (evaluations.length < 1) {
-      evaluations.sort(function(obj1, obj2) {
-        return new Date(obj2.date) - new Date(obj1.date);
-      });
-      return "no evaluation yet";
-    } else {
-      return evaluations[0].color;
-    }
+    // if (evaluations.length < 1) {
+    //   evaluations.sort(function(obj1, obj2) {
+    //     return new Date(obj2.date) - new Date(obj1.date);
+    //   });
+    //   return "no evaluation yet";
+    // } else {
+    //   return evaluations[0].color;
+    // }
   }
 
   pickStudent(value) {
@@ -108,10 +115,8 @@ class Students extends PureComponent {
           }) //all colors and id in array.
       )
     );
-    //const rand = array[Math.floor(Math.random() * array.length)];
 
     const chance = Math.round(Math.random() * 100);
-    // console.log(choic§e, "wat is het nummer?");
 
     const redArray = array.filter(x => x.color === "red");
     const orangeArray = array.filter(x => x.color === "orange");
@@ -120,8 +125,6 @@ class Students extends PureComponent {
 
     if (chance < 45) {
       student = redArray[Math.floor(Math.random() * redArray.length)];
-
-      //console.log(redArray[Math.floor(Math.random() * redArray.length)].id);
     }
     if (chance > 45 && chance < 80) {
       student = orangeArray[Math.floor(Math.random() * orangeArray.length)];
@@ -154,7 +157,7 @@ class Students extends PureComponent {
           <div>
             batchnr:{id}
             {"   "}
-            {this.allScoreByBatch(students)}
+            {students && this.allScoreByBatch(students)}
             {students.map((student, i) => (
               <div>
                 <Link
@@ -235,6 +238,3 @@ export default connect(
 
 //http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl" //add student
 //http delete :4000/student/2
-
-//rand = myArray[Math.floor(Math.random() * myArray.length)]; //random array
-//array.filter(x => x.color == "red"), "red"); filter for green/red/etc.

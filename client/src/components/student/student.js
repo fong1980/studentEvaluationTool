@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getStudent } from "../../actions/student";
 import { addEvaluation } from "../../actions/evaluations";
 import { userId } from "../../jwt";
+import { Z_FILTERED } from "zlib";
 
 class Student extends PureComponent {
   constructor(props) {
@@ -28,17 +29,37 @@ class Student extends PureComponent {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log(this.state, "-----");
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.props.user.id, "en dit dan?");
+    //if (this.EvaluationCheckDate(this.props.student.id).length)==0)
+    console.log(this.EvaluationCheckDate(this.props.student.id).length);
+
+    this.setState({ color: "", remark: "", date: "" });
     this.props.addEvaluation(
       this.props.user.id, //id teacher
       this.props.student.id, //id student
       this.state
     );
+  }
+
+  EvaluationCheckDate() {
+    console.log(this.props.student, "adfad");
+    const dateArray = this.props.student.evaluations.map(date => date.date);
+
+    const dateNow = new Date()
+      .toJSON()
+      .slice(0, 10)
+      .replace(/-/g, "-");
+
+    const date2 = dateArray.filter(date => {
+      if (date == dateNow) {
+      } else {
+        return;
+      }
+    });
+    return date2;
   }
 
   render() {

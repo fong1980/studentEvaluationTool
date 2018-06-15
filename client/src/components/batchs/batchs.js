@@ -39,7 +39,7 @@ class batchs extends PureComponent {
     const { createRecord, reset } = this.props;
     event.preventDefault();
     this.props.createBatch(this.state);
-    //this.setState({}); why is this nog working?
+    //this.setState({}); //why is this nog working?
     this.setState({ batchnr: "", startdate: "", endDate: "" }); //why is this nog working?
     reset();
 
