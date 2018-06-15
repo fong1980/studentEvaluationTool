@@ -30,6 +30,37 @@ class Students extends PureComponent {
     }
   }
 
+  allScoreByBatch(batchEvaluation) {
+    const allColorBatch = [];
+    // console.log(batchEvaluation, "====");
+    let allcolor = [];
+    batchEvaluation.map(student =>
+      student.evaluations.map(evaluations => {
+        allcolor.push(evaluations.color);
+        //console.log(evaluations.color);
+      })
+    );
+    const total = allcolor.length;
+    const red = allcolor.filter(x => x === "red").length;
+    const orange = allcolor.filter(x => x === "orange").length;
+    const green = allcolor.filter(x => x === "green").length;
+
+    console.log(this.calcPercentage(2, 10));
+    // student.map(student2 => console.log(student2, "test")));
+    console.log(allcolor, "is dit correct?");
+    return (
+      <div>
+        <div>red {this.calcPercentage(red, total)} %</div>
+        <div>orange {this.calcPercentage(orange, total)} %</div>
+        <div>green {this.calcPercentage(red, total)} %</div>
+      </div>
+    );
+  }
+
+  calcPercentage(color, total) {
+    return Math.round((color / total) * 100);
+  }
+
   onclickgetStudents(studId) {
     this.props.getStudent(studId);
     console.log(studId);
@@ -44,7 +75,6 @@ class Students extends PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
-    //console.log(this.props.match.params.id, this.state);
     this.props.createStudent(this.props.match.params.id, this.state);
   }
 
@@ -53,11 +83,16 @@ class Students extends PureComponent {
   }
 
   getLatestColor(evaluations) {
-    evaluations.sort(function(obj1, obj2) {
-      return new Date(obj2.date) - new Date(obj1.date);
-    });
+    //console.log(evaluations, "adsfadfadfadfadf----");
 
-    return evaluations[0].color;
+    if (evaluations.length < 1) {
+      evaluations.sort(function(obj1, obj2) {
+        return new Date(obj2.date) - new Date(obj1.date);
+      });
+      return "no evaluation yet";
+    } else {
+      return evaluations[0].color;
+    }
   }
 
   pickStudent(value) {
@@ -118,6 +153,8 @@ class Students extends PureComponent {
         {students && (
           <div>
             batchnr:{id}
+            {"   "}
+            {this.allScoreByBatch(students)}
             {students.map((student, i) => (
               <div>
                 <Link

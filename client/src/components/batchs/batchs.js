@@ -1,11 +1,12 @@
 import React, { PureComponent } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-
+// import { reducer as formReducer } from "redux-form";
 import { getBatchs, createBatch } from "../../actions/batchs"; //createBatch
 import { Link } from "react-router-dom";
 import { getStudents } from "../../actions/students";
 import { getUsers } from "../../actions/users";
+import { reset } from "redux-form";
 
 class batchs extends PureComponent {
   constructor(props) {
@@ -19,12 +20,10 @@ class batchs extends PureComponent {
 
   onclickgetStudents(batchId) {
     this.props.getStudents(batchId);
-    //getStudents(id);
-    //http get :4000/studentBatch/2
   }
 
   componentDidMount() {
-    if (this.props.batchs === null) this.props.getBatchs(); //=== null
+    if (this.props.batchs === null) this.props.getBatchs();
     if (this.props.authenticated) {
       if (this.props.users === null) this.props.getUsers();
     }
@@ -34,13 +33,18 @@ class batchs extends PureComponent {
     this.setState({
       [e.target.name]: e.target.value
     });
-    //console.log(this.state.batchnr, "i am in the state");
   }
 
   handleSubmit(event) {
+    const { createRecord, reset } = this.props;
     event.preventDefault();
     this.props.createBatch(this.state);
-    console.log(this.state);
+    //this.setState({}); why is this nog working?
+    this.setState({ batchnr: "", startdate: "", endDate: "" }); //why is this nog working?
+    reset();
+
+    // this.props.reset('');
+    console.log(this.state, "asdfadaf");
   }
 
   render() {
@@ -68,7 +72,7 @@ class batchs extends PureComponent {
                 <br />
               </div>
             ))}
-            <form onSubmit={this.handleSubmit}>
+            <form name="myForm" onSubmit={this.handleSubmit}>
               <input
                 name="batchnr"
                 placeholder="batchnr"
@@ -109,12 +113,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, getBatchs, getStudents, createBatch }
+  { getUsers, getBatchs, getStudents, createBatch, reset }
 )(batchs);
-
-// {
-// batchnr(pin): "112"
-// startdate(pin): "0222-02-22"
-// enddate(pin): "0002-02-22"
-// id(pin): 13
-// }
