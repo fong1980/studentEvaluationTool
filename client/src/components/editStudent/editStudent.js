@@ -21,12 +21,16 @@ class EdditStudent extends PureComponent {
 
   componentWillMount() {
     console.log(this.props.match.params, "what is in here?");
-    const { id } = this.props.match.params;
-    if (this.props.student === null) this.props.getStudent(id);
+    const { batchId, studentId } = this.props.match.params;
+
+    // console.log(batchId, "batchnummer?");
+    // console.log(studentId, "studId");
+
+    if (this.props.student === null) this.props.getStudent(studentId);
     if (this.props.authenticated) {
       if (this.props.users === null) this.props.getUsers();
     }
-    //this.props.getStudents(30);
+    this.props.getStudents(this.props.match.params.batchId);
   }
   handleInputChange(e) {
     this.setState({
@@ -39,11 +43,9 @@ class EdditStudent extends PureComponent {
   handleSubmit(event) {
     event.preventDefault();
 
-    //this.props.getStudents(30);
-    //if (this.EvaluationCheckDate(this.props.student.id).length)==0)
     console.log(this.state);
     this.setState({ firstName: "", lastName: "" });
-    //this.props.editStudent(this.state, this.props.match.params.id);
+    this.props.editStudent(this.state, this.props.match.params.studentId);
   }
   onclickToBatch(batchId) {
     console.log("tobatch");
@@ -55,6 +57,7 @@ class EdditStudent extends PureComponent {
     if (!authenticated) return <Redirect to="/login" />;
     const { student } = this.props;
     const { id } = this.props.match.params;
+
     console.log(student);
     return (
       <div>
@@ -89,11 +92,15 @@ class EdditStudent extends PureComponent {
               <input type="submit" value="Submit" />
               <br />
             </form>
-            {/* <Link to={`/students/30`}> */}
-            <button onClick={() => this.onclickToBatch(30)}>
-              back to batch
-            </button>
-            {/* </Link> */}
+            <Link to={`/students/30`}>
+              <button
+                onClick={() =>
+                  this.onclickToBatch(this.props.match.params.batchId)
+                }
+              >
+                back to batch
+              </button>
+            </Link>
           </div>
         )}
         <div>div</div>
