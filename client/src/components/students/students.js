@@ -180,7 +180,7 @@ class Students extends PureComponent {
                   Delete
                 </button>
                 <Link
-                  to={`/edditstudent/${student.id}`} //
+                  to={`/edditStudent/${student.id}`} //
                   onClick={() => this.onclickgetStudent(student.id)}
                 >
                   <button>Edit</button>
