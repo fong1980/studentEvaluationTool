@@ -22,7 +22,7 @@ class Students extends PureComponent {
     this.pickStudent = this.pickStudent.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { id } = this.props.match.params;
     if (this.props.students === null) this.props.getStudents(id);
     if (this.props.authenticated) {
@@ -37,24 +37,24 @@ class Students extends PureComponent {
     const allColorBatch = [];
 
     let allcolor = [];
-    console.log(batchEvaluation, "---------");
+    //console.log(batchEvaluation, "---------");
 
     batchEvaluation.map(student =>
       student.evaluations.map(evaluations => {
-        console.log(evaluations, "dsaf-----");
+        //console.log(evaluations, "dsaf-----");
         allcolor.push(evaluations.color);
         //console.log(evaluations.color);
       })
     );
     const total = allcolor.length;
-    console.log(total, "totaal?");
+    // console.log(total, "totaal?");
     const red = allcolor.filter(x => x === "red").length;
     const orange = allcolor.filter(x => x === "orange").length;
     const green = allcolor.filter(x => x === "green").length;
-    console.log("total:", total);
-    console.log("red:", red);
-    console.log("orange:", orange);
-    console.log("green:", green);
+    // console.log("total:", total);
+    // console.log("red:", red);
+    // console.log("orange:", orange);
+    // console.log("green:", green);
 
     return (
       <div>
@@ -92,7 +92,7 @@ class Students extends PureComponent {
   }
 
   getLatestColor(evaluations) {
-    console.log(evaluations, "adsfadfadfadfadf----");
+    // console.log(evaluations, "adsfadfadfadfadf----");
     if (evaluations.length < 1) {
       evaluations.sort(function(obj1, obj2) {
         return new Date(obj2.date) - new Date(obj1.date);
@@ -179,8 +179,11 @@ class Students extends PureComponent {
                 <button onClick={() => this.deleteStudent(student.id)}>
                   Delete
                 </button>
+                {console.log(this.props.match.params.id, "--", student.id)}
                 <Link
-                  to={`/edditStudent/${student.id}`} //
+                  to={`/edditStudent/${this.props.match.params.id}/${
+                    student.id
+                  }`} //
                   onClick={() => this.onclickgetStudent(student.id)}
                 >
                   <button>Edit</button>

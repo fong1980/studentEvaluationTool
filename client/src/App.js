@@ -27,7 +27,11 @@ class App extends Component {
             <Route exact path="/batchs" component={Batchs} />
             <Route exact path="/students/:id" component={Students} />
             <Route exact path="/student/:id" component={Student} />
-            <Route exact path="/edditStudent/:id" component={EdditStudent} />
+            <Route
+              exact
+              path="/edditStudent/:batchId/:studentId"
+              component={EdditStudent}
+            />
 
             <Route exact path="/games" component={GamesList} />
             <Route exact path="/games/:id" component={Students} />
