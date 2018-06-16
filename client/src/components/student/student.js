@@ -42,6 +42,10 @@ class Student extends PureComponent {
       this.props.student.id, //id student
       this.state
     );
+    setTimeout(300);
+
+    this.props.getStudent(this.props.match.params.id);
+    // this.props.getStudent(this.props.match.params.id);
   }
 
   EvaluationCheckDate() {
