@@ -7,8 +7,7 @@ import {
   Param,
   Delete,
   NotFoundError,
-  Put,
-  Patch
+  Put
 } from "routing-controllers";
 import Students from "./entity";
 import Batch from "../batchs/entity";
