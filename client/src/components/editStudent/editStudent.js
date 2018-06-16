@@ -39,7 +39,7 @@ class EdditStudent extends PureComponent {
     //if (this.EvaluationCheckDate(this.props.student.id).length)==0)
     console.log(this.state);
     this.setState({ firstName: "", lastName: "" });
-    this.props.editStudent(this.state);
+    this.props.editStudent(this.state, this.props.match.params.id);
   }
 
   render() {
