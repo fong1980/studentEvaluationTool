@@ -18,6 +18,7 @@ export default (state = null, action) => {
       console.log(action.payload, "dit is payload");
       const checkId = student => student.id !== action.payload;
       return state.filter(checkId);
+
     default:
       return state;
   }

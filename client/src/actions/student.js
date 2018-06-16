@@ -4,6 +4,15 @@ import { logout } from "./users";
 import { isExpired } from "../jwt";
 
 export const GET_STUDENT = "GET_STUDENT";
+export const EDIT_STUDENT = "EDIT_STUDENT";
+
+export const editStudent = content => {
+  console.log("action--");
+  return {
+    type: EDIT_STUDENT,
+    payload: "studId"
+  };
+};
 
 export const getStudent = studId => (dispatch, getState) => {
   //change functionname + parameter
