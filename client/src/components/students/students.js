@@ -15,7 +15,7 @@ class Students extends PureComponent {
     super(props);
     this.state = {};
 
-    this.onclickgetStudents = this.onclickgetStudents.bind(this);
+    this.onclickgetStudent = this.onclickgetStudent.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteStudent = this.deleteStudent.bind(this);
@@ -69,7 +69,7 @@ class Students extends PureComponent {
     return Math.round((color / total) * 100);
   }
 
-  onclickgetStudents(studId) {
+  onclickgetStudent(studId) {
     this.props.getStudent(studId);
     console.log(studId);
   }
@@ -163,7 +163,7 @@ class Students extends PureComponent {
               <div>
                 <Link
                   to={`/student/${student.id}`} //
-                  onClick={() => this.onclickgetStudents(student.id)}
+                  onClick={() => this.onclickgetStudent(student.id)}
                 >
                   <img
                     src={student.photo}
@@ -179,6 +179,12 @@ class Students extends PureComponent {
                 <button onClick={() => this.deleteStudent(student.id)}>
                   Delete
                 </button>
+                <Link
+                  to={`/edditstudent/${student.id}`} //
+                  onClick={() => this.onclickgetStudent(student.id)}
+                >
+                  <button>Edit</button>
+                </Link>
                 <br />
               </div>
             ))}
