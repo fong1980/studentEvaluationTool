@@ -36,17 +36,18 @@ class Students extends PureComponent {
     }
     const allColorBatch = [];
 
-    let allcolor = ["red", "red"];
+    let allcolor = [];
     console.log(batchEvaluation, "---------");
 
-    // batchEvaluation.map(student =>
-    //   student.evaluations.map(evaluations => {
-    //     console.log(evaluations, "dsaf-----"); //hier zit nog een bug?
-    //     allcolor.push(evaluations.color);
-    //     //console.log(evaluations.color);
-    //   })
-    // );
+    batchEvaluation.map(student =>
+      student.evaluations.map(evaluations => {
+        console.log(evaluations, "dsaf-----");
+        allcolor.push(evaluations.color);
+        //console.log(evaluations.color);
+      })
+    );
     const total = allcolor.length;
+    console.log(total, "totaal?");
     const red = allcolor.filter(x => x === "red").length;
     const orange = allcolor.filter(x => x === "orange").length;
     const green = allcolor.filter(x => x === "green").length;
@@ -91,15 +92,15 @@ class Students extends PureComponent {
   }
 
   getLatestColor(evaluations) {
-    //console.log(evaluations, "adsfadfadfadfadf----");
-    // if (evaluations.length < 1) {
-    //   evaluations.sort(function(obj1, obj2) {
-    //     return new Date(obj2.date) - new Date(obj1.date);
-    //   });
-    //   return "no evaluation yet";
-    // } else {
-    //   return evaluations[0].color;
-    // }
+    console.log(evaluations, "adsfadfadfadfadf----");
+    if (evaluations.length < 1) {
+      evaluations.sort(function(obj1, obj2) {
+        return new Date(obj2.date) - new Date(obj1.date);
+      });
+      return "no evaluation yet";
+    } else {
+      return evaluations[0].color;
+    }
   }
 
   pickStudent(value) {

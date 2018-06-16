@@ -6,7 +6,9 @@ import {
   Body,
   Param,
   Delete,
-  NotFoundError
+  NotFoundError,
+  Put,
+  Patch
 } from "routing-controllers";
 import Students from "./entity";
 import Batch from "../batchs/entity";
@@ -35,6 +37,7 @@ export default class batchsController {
   @Get("/students/:id")
   async getStudentById(@Param("id") stuentId: number) {
     const student = await Students.findOne(stuentId);
+    if (!student) throw new NotFoundError("Sorry Student doesn't exist");
     return student;
   }
   //http get :4000/students/2
@@ -47,7 +50,9 @@ export default class batchsController {
     if (!batch) throw new NotFoundError("no batch find");
 
     const newStudent = await Students.create({ ...student, batch }).save(); //zie tic tak game.
-    return newStudent;
+    const batch2 = await Batch.findOne(batchId);
+    if (!batch2) throw new NotFoundError("no batch find");
+    return batch2.students;
   }
   //http post :4000/addStudent/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl" 2=batchid
 
@@ -62,4 +67,18 @@ export default class batchsController {
     return "student Deleted with" + id;
   }
   //http delete :4000/student/2
+
+  @Put("/students/:id")
+  // @HttpCode(200)
+  async editStudent(
+    @Param("id") id: number,
+    @Body() update: Partial<Students>
+  ) {
+    const student = await Students.findOne(id);
+    if (!student) throw new NotFoundError("put Student doesn't exist");
+
+    return Students.merge(student, update).save();
+  }
+
+  //http put :4000/students/2 firstName=henk lastName=nietsnuts photo="thisIsaPic.nl"
 }

@@ -13,7 +13,7 @@ export default (state = null, action) => {
       // //console.log(state, "-----en dit is state----");
       // [...action.payload, { evaluations: 2 }];
       // console.log(action.payload, "---ik ben payload nog een keer -");
-      return [...state, action.payload];
+      return action.payload;
     case DELETE_STUDENT:
       console.log(action.payload, "dit is payload");
       const checkId = student => student.id !== action.payload;
