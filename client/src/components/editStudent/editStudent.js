@@ -92,7 +92,7 @@ class EdditStudent extends PureComponent {
               <input type="submit" value="Submit" />
               <br />
             </form>
-            <Link to={`/students/30`}>
+            <Link to={`/students/${this.props.match.params.batchId}`}>
               <button
                 onClick={() =>
                   this.onclickToBatch(this.props.match.params.batchId)

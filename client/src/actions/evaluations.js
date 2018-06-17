@@ -36,7 +36,8 @@ export const addEvaluation = (teachterId, studId, newEvaluation) => (
         // console.log(response.body, "doet iksfgsdgfsfg het?", studId),
 
         {
-          type: "GET_STUDENT", //ADD_EVALUATION,
+          type: "GET_STUDENT",
+          //ADD_EVALUATION,
           payload: response.body
         }
       )

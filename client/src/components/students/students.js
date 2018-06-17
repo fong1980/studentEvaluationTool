@@ -9,11 +9,15 @@ import {
 } from "../../actions/students";
 import { Link } from "react-router-dom";
 import { getStudent } from "../../actions/student";
+// import { LinearProgress } from "@material-ui/core/LinearProgress";
 
 class Students extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      photo:
+        "http://www.breakingscience.be/src/Frontend/Files/blog/images/source/einstein-een-rebels-genie.jpg"
+    };
 
     this.onclickgetStudent = this.onclickgetStudent.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -42,11 +46,14 @@ class Students extends PureComponent {
         allcolor.push(evaluations.color);
       })
     );
-    const total = allcolor.length;
+    let total = allcolor.length;
+    console.log(allcolor, "all color");
     // console.log(total, "totaal?");
     const red = allcolor.filter(x => x === "red").length;
     const orange = allcolor.filter(x => x === "orange").length;
     const green = allcolor.filter(x => x === "green").length;
+
+    total = red + orange + green;
     // console.log("total:", total);
     // console.log("red:", red);
     // console.log("orange:", orange);
@@ -114,7 +121,6 @@ class Students extends PureComponent {
     );
 
     const chance = Math.round(Math.random() * 100);
-
     const redArray = array.filter(x => x.color === "red");
     const orangeArray = array.filter(x => x.color === "orange");
     const greenArray = array.filter(x => x.color === "green");
@@ -158,7 +164,7 @@ class Students extends PureComponent {
             {students.map((student, i) => (
               <div>
                 <Link
-                  to={`/student/${student.id}`} //
+                  to={`/student/${this.props.match.params.id}/${student.id}`}
                   onClick={() => this.onclickgetStudent(student.id)}
                 >
                   <img
@@ -179,7 +185,7 @@ class Students extends PureComponent {
                 <Link
                   to={`/edditStudent/${this.props.match.params.id}/${
                     student.id
-                  }`} //
+                  }`}
                   onClick={() => this.onclickgetStudent(student.id)}
                 >
                   <button>Edit</button>

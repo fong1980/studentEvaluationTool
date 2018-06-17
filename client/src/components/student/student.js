@@ -18,8 +18,10 @@ class Student extends PureComponent {
   }
 
   componentWillMount() {
-    const { id } = this.props.match.params;
-    if (this.props.student === null) this.props.getStudent(id);
+    const { batchId, studentId } = this.props.match.params;
+    console.log(this.props.match.params.StudentId);
+
+    if (this.props.student === null) this.props.getStudent(studentId);
     if (this.props.authenticated) {
       if (this.props.users === null) this.props.getUsers();
     }
@@ -44,7 +46,7 @@ class Student extends PureComponent {
     );
     setTimeout(2000);
 
-    this.props.getStudent(this.props.match.params.id);
+    // this.props.getStudent(this.props.match.params.StudentId);
   }
 
   EvaluationCheckDate() {
@@ -63,6 +65,11 @@ class Student extends PureComponent {
       }
     });
     return date2;
+  }
+
+  onclickToBatch(batchId) {
+    console.log(batchId, "adsfadfaafd");
+    this.props.getStudents(batchId);
   }
 
   render() {
@@ -143,9 +150,17 @@ class Student extends PureComponent {
             </label>
             <br />
             <input type="submit" value="Submit" />
-
-            <input type="submit" value="SAVE, next student" />
           </form>
+
+          <Link to={`/students/${this.props.match.params.batchId}`}>
+            <button
+              onClick={() =>
+                this.onclickToBatch(this.props.match.params.batchId)
+              }
+            >
+              back to batch
+            </button>
+          </Link>
         </div>
       </div>
     );
@@ -164,7 +179,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, getStudent, addEvaluation }
+  { getUsers, getStudent, addEvaluation, getStudents }
 )(Student);
 
 // http post :4000/evaluation/11/1 remark=favorstudent date="22-04-2019" color=green

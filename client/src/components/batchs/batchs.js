@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { getStudents } from "../../actions/students";
 import { getUsers } from "../../actions/users";
 import { reset } from "redux-form";
-//import Button from "@material-ui/core/Button";
+import Paper from "material-ui/Paper";
+//import RaisedButton from "material-ui/RaisedButton";
 
 class batchs extends PureComponent {
   constructor(props) {
@@ -60,7 +61,7 @@ class batchs extends PureComponent {
           <div>
             <div className="all batch">batchlist</div>
             {batchs.map((batch, i) => (
-              <div>
+              <Paper>
                 <Link
                   to={`/students/${batch.id}`}
                   onClick={() => this.onclickgetStudents(batch.id)}
@@ -71,8 +72,9 @@ class batchs extends PureComponent {
                 start date: {batch.startdate} <br />
                 end date: {batch.startdate} <br />
                 <br />
-              </div>
+              </Paper>
             ))}
+
             <form name="myForm" onSubmit={this.handleSubmit}>
               <input
                 name="batchnr"
