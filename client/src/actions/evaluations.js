@@ -2,6 +2,7 @@ import * as request from "superagent";
 import { baseUrl } from "../constants";
 import { logout } from "./users";
 import { isExpired } from "../jwt";
+import { getStudent } from "../actions/student";
 
 export const ADD_EVALUATION = "ADD_EVALUATION";
 
@@ -31,10 +32,14 @@ export const addEvaluation = (teachterId, studId, newEvaluation) => (
     .set("Authorization", `Bearer ${jwt}`)
     .send(newEvaluation)
     .then(response =>
-      dispatch({
-        type: ADD_EVALUATION,
-        payload: response.body
-      })
+      dispatch(
+        // console.log(response.body, "doet iksfgsdgfsfg het?", studId),
+
+        {
+          type: "GET_STUDENT", //ADD_EVALUATION,
+          payload: response.body
+        }
+      )
     )
     .catch(err => console.error(err));
 };

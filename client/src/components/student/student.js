@@ -34,7 +34,7 @@ class Student extends PureComponent {
   handleSubmit(event) {
     event.preventDefault();
     //if (this.EvaluationCheckDate(this.props.student.id).length)==0)
-    console.log(this.EvaluationCheckDate(this.props.student.id).length);
+    //console.log(this.EvaluationCheckDate(this.props.student.id).length);
 
     this.setState({ color: "", remark: "", date: "" });
     this.props.addEvaluation(
@@ -42,10 +42,9 @@ class Student extends PureComponent {
       this.props.student.id, //id student
       this.state
     );
-    setTimeout(300);
+    setTimeout(2000);
 
     this.props.getStudent(this.props.match.params.id);
-    // this.props.getStudent(this.props.match.params.id);
   }
 
   EvaluationCheckDate() {
@@ -87,7 +86,6 @@ class Student extends PureComponent {
                 <div>{evaluation.color}</div>
               ))}
             </div>
-
             <div>
               <img
                 src={student.photo}

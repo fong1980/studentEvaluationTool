@@ -37,13 +37,9 @@ class Students extends PureComponent {
     const allColorBatch = [];
 
     let allcolor = [];
-    //console.log(batchEvaluation, "---------");
-
     batchEvaluation.map(student =>
       student.evaluations.map(evaluations => {
-        //console.log(evaluations, "dsaf-----");
         allcolor.push(evaluations.color);
-        //console.log(evaluations.color);
       })
     );
     const total = allcolor.length;

@@ -43,7 +43,9 @@ export default class EvaluationsController {
       student,
       user
     }).save();
-    return newEvaluation;
+    const student2 = await Students.findOne(studId);
+
+    return student2;
   }
   // http post :4000/evaluation/1/1 remark=favorstudent color=green date="22-04-2019"
   // @Post("/evaluation/:stuId/:userId")
