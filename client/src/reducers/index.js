@@ -1,4 +1,4 @@
-import games from "./games"; //DEZE MOET STRAKS WEG
+// import games from "./games"; //DEZE MOET STRAKS WEG
 import users from "./users";
 import login from "./login";
 import currentUser from "./currentUser";
@@ -9,7 +9,7 @@ import student from "./studentReducer";
 import evaluation from "./evaluationReducer";
 
 export default {
-  games,
+  //games,
   users,
   login,
   currentUser,

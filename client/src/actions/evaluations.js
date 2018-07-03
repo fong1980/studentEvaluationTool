@@ -37,7 +37,6 @@ export const addEvaluation = (teachterId, studId, newEvaluation) => (
 
         {
           type: "GET_STUDENT",
-          //ADD_EVALUATION,
           payload: response.body
         }
       )

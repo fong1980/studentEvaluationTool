@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import LoginPage from "./components/login/LoginPage";
 import SignupPage from "./components/signup/SignupPage";
-import GamesList from "./components/games/GamesList";
-import GameDetails from "./components/games/GameDetails";
+//import GamesList from "./components/games/GamesList";
+//import GameDetails from "./components/games/GameDetails";
 import LogoutPage from "./components/logout/LogoutPage";
 import "./App.css";
 import TopBar from "./components/layout/TopBar";
@@ -39,8 +39,8 @@ class App extends Component {
                 component={EdditStudent}
               />
 
-              <Route exact path="/games" component={GamesList} />
-              <Route exact path="/games/:id" component={Students} />
+              {/* <Route exact path="/games" component={GamesList} /> */}
+              {/* <Route exact path="/games/:id" component={Students} /> */}
 
               <Route exact path="/" render={() => <Redirect to="/batchs" />} />
             </main>

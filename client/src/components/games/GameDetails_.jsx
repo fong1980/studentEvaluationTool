@@ -6,7 +6,7 @@ import { getUsers } from "../../actions/users";
 import { userId } from "../../jwt";
 import Paper from "material-ui/Paper";
 import Board from "./Board";
-import "./GameDetails.css";
+//import "./GameDetails.css";
 
 class GameDetails extends PureComponent {
   componentWillMount() {
