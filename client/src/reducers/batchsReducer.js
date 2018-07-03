@@ -1,9 +1,5 @@
 import { GET_BATCHS, CREATE_BATCH } from "../actions/batchs";
 
-/*
-The state will contain the games in an object with the game ID as key
-*/
-
 export default (state = null, action) => {
   switch (action.type) {
     case GET_BATCHS:

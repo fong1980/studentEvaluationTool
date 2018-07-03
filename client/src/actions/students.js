@@ -7,16 +7,7 @@ export const GET_STUDENTS = "GET_STUDENTS";
 export const CREATE_STUDENT = "CREATE_STUDENT";
 export const DELETE_STUDENT = "DELETE_STUDENT";
 
-// export const deleteStudent = studId => {
-//   console.log("action--");
-//   return {
-//     type: DELETE_STUDENT,
-//     payload: studId
-//   };
-// };
-
 export const getStudents = batchId => (dispatch, getState) => {
-  //change functionname + parameter
   const state = getState();
   if (!state.currentUser) return null;
   const jwt = state.currentUser.jwt;
@@ -26,7 +17,7 @@ export const getStudents = batchId => (dispatch, getState) => {
     .get(`${baseUrl}/studentBatch/${batchId}`)
     .then(response =>
       dispatch({
-        type: GET_STUDENTS, //change type
+        type: GET_STUDENTS,
         payload: response.body
       })
     )
@@ -36,7 +27,6 @@ export const getStudents = batchId => (dispatch, getState) => {
 //http get :4000/studentBatch/2 //get student from batch
 
 export const createStudent = (batchId, studInfo) => (dispatch, getState) => {
-  console.log(studInfo, "ik ben in de ationcreator");
   const state = getState();
   if (!state.currentUser) return null;
   const jwt = state.currentUser.jwt;

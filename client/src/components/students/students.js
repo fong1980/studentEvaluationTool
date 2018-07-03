@@ -95,7 +95,6 @@ class Students extends PureComponent {
   }
 
   getLatestColor(evaluations) {
-    // console.log(evaluations, "adsfadfadfadfadf----");
     if (evaluations.length < 1) {
       evaluations.sort(function(obj1, obj2) {
         return new Date(obj2.date) - new Date(obj1.date);
@@ -109,14 +108,13 @@ class Students extends PureComponent {
   pickStudent(value) {
     const array = [];
     value.map(x =>
-      x.evaluations.map(
-        evaluation =>
-          array.push({
-            color: evaluation.color,
-            id: x.id,
-            firstname: x.firstName,
-            lastname: x.lastName
-          }) //all colors and id in array.
+      x.evaluations.map(evaluation =>
+        array.push({
+          color: evaluation.color,
+          id: x.id,
+          firstname: x.firstName,
+          lastname: x.lastName
+        })
       )
     );
 
@@ -148,7 +146,7 @@ class Students extends PureComponent {
   }
 
   render() {
-    const { authenticated } = this.props; //games, users,createGame deleted
+    const { authenticated } = this.props;
     if (!authenticated) return <Redirect to="/login" />;
     const { students } = this.props;
     const { id } = this.props.match.params;
@@ -181,7 +179,6 @@ class Students extends PureComponent {
                 <button onClick={() => this.deleteStudent(student.id)}>
                   Delete
                 </button>
-                {console.log(this.props.match.params.id, "--", student.id)}
                 <Link
                   to={`/edditStudent/${this.props.match.params.id}/${
                     student.id

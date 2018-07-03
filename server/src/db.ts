@@ -7,8 +7,6 @@ import Batch from "./batchs/entity";
 import student from "./students/entity";
 import Evaluation from "./evaluations/entity";
 
-//import { Player, Game } from "./games/entities";
-
 class CustomNamingStrategy extends DefaultNamingStrategy
   implements NamingStrategyInterface {
   tableName(targetName: string, userSpecifiedName: string): string {

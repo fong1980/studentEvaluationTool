@@ -19,7 +19,6 @@ class Student extends PureComponent {
 
   componentWillMount() {
     const { batchId, studentId } = this.props.match.params;
-    console.log(this.props.match.params.StudentId);
 
     if (this.props.student === null) this.props.getStudent(studentId);
     if (this.props.authenticated) {
@@ -35,22 +34,17 @@ class Student extends PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
-    //if (this.EvaluationCheckDate(this.props.student.id).length)==0)
-    //console.log(this.EvaluationCheckDate(this.props.student.id).length);
 
     this.setState({ color: "", remark: "", date: "" });
     this.props.addEvaluation(
-      this.props.user.id, //id teacher
-      this.props.student.id, //id student
+      this.props.user.id,
+      this.props.student.id,
       this.state
     );
     setTimeout(2000);
-
-    // this.props.getStudent(this.props.match.params.StudentId);
   }
 
   EvaluationCheckDate() {
-    console.log(this.props.student, "adfad");
     const dateArray = this.props.student.evaluations.map(date => date.date);
 
     const dateNow = new Date()
@@ -68,22 +62,17 @@ class Student extends PureComponent {
   }
 
   onclickToBatch(batchId) {
-    console.log(batchId, "adsfadfaafd");
     this.props.getStudents(batchId);
   }
 
   render() {
-    const { authenticated } = this.props; //games, users,createGame deleted
+    const { authenticated } = this.props;
     if (!authenticated) return <Redirect to="/login" />;
     const { student } = this.props;
 
     return (
       <div>
         {!this.props.student && <div>Loading...</div>}
-
-        {
-          // student.evaluations.map(evaluation => "evaluation")
-        }
 
         {this.props.student && (
           <div>

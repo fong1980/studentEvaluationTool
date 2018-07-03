@@ -33,13 +33,7 @@ const TopBar = props => {
             Sign up
           </Button>
         )}
-        {//ik denk dat we deze kan missen....
 
-        location.pathname.indexOf("games/") > 0 && (
-          <Button color="inherit" onClick={() => history.push("/games")}>
-            All Games
-          </Button>
-        )}
         {/batchs$/.test(location.pathname) && (
           <Button color="inherit" onClick={() => history.push("/logout")}>
             Log out

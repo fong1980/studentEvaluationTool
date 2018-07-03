@@ -16,15 +16,10 @@ class EdditStudent extends PureComponent {
     this.state = {};
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.editStudent = this.editStudent.bind(this);
   }
 
   componentWillMount() {
-    console.log(this.props.match.params, "what is in here?");
     const { batchId, studentId } = this.props.match.params;
-
-    // console.log(batchId, "batchnummer?");
-    // console.log(studentId, "studId");
 
     if (this.props.student === null) this.props.getStudent(studentId);
     if (this.props.authenticated) {
@@ -36,29 +31,24 @@ class EdditStudent extends PureComponent {
     this.setState({
       [e.target.name]: e.target.value
     });
-
-    console.log(this.state);
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
-    console.log(this.state);
     this.setState({ firstName: "", lastName: "" });
     this.props.editStudent(this.state, this.props.match.params.studentId);
   }
   onclickToBatch(batchId) {
-    console.log("tobatch");
     this.props.getStudents(batchId);
   }
 
   render() {
-    const { authenticated } = this.props; //games, users,createGame deleted
+    const { authenticated } = this.props;
     if (!authenticated) return <Redirect to="/login" />;
     const { student } = this.props;
     const { id } = this.props.match.params;
 
-    console.log(student);
     return (
       <div>
         {!student && <div>Loading...</div>}

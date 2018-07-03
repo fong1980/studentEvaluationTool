@@ -6,40 +6,25 @@ import { getStudent } from "../actions/student";
 
 export const ADD_EVALUATION = "ADD_EVALUATION";
 
-// export const addEvaluation = () => {
-//   return {
-//     type: ADD_EVALUATION,
-//     payload: "ADD_EVALUATION"
-//   };
-// };
-
 export const addEvaluation = (teachterId, studId, newEvaluation) => (
-  //userId later toevoegen
   dispatch,
   getState
 ) => {
-  console.log(newEvaluation, "actioncretor addevaluation");
   const state = getState();
   if (!state.currentUser) return null;
   const jwt = state.currentUser.jwt;
 
   if (isExpired(jwt)) return dispatch(logout());
-  console.log("-9999999999-");
-  console.log(studId, "------", teachterId);
 
   request
     .post(`${baseUrl}/evaluation/${studId}/${teachterId}`)
     .set("Authorization", `Bearer ${jwt}`)
     .send(newEvaluation)
     .then(response =>
-      dispatch(
-        // console.log(response.body, "doet iksfgsdgfsfg het?", studId),
-
-        {
-          type: "GET_STUDENT",
-          payload: response.body
-        }
-      )
+      dispatch({
+        type: "GET_STUDENT",
+        payload: response.body
+      })
     )
     .catch(err => console.error(err));
 };
