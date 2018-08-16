@@ -8,7 +8,9 @@ import { getStudents } from "../../actions/students";
 import { getUsers } from "../../actions/users";
 import { reset } from "redux-form";
 import Paper from "material-ui/Paper";
-//import RaisedButton from "material-ui/RaisedButton";
+
+import Button from "@material-ui/core/Button";
+// Error: Material-UI: react@16.3.0 or greater is required.
 
 class batchs extends PureComponent {
   constructor(props) {
@@ -63,7 +65,8 @@ class batchs extends PureComponent {
                   to={`/students/${batch.id}`}
                   onClick={() => this.onclickgetStudents(batch.id)}
                 >
-                  nr:{batch.batchnr}
+                  nr:
+                  {batch.batchnr}
                 </Link>
                 <br />
                 start date: {batch.startdate} <br />
@@ -95,7 +98,9 @@ class batchs extends PureComponent {
                 onChange={this.handleInputChange}
               />
 
-              <input type="submit" value="Submit" />
+              <Button>
+                <input type="submit" value="Submit" />{" "}
+              </Button>
             </form>
           </div>
         )}

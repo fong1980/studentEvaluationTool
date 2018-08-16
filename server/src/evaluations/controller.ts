@@ -42,7 +42,7 @@ export default class EvaluationsController {
       ...evaluations,
       student,
       user
-    }).save();
+    }).save(); //tijdelijk uitgezet.
     const student2 = await Students.findOne(studId);
 
     return student2;
